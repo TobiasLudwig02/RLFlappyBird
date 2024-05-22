@@ -11,7 +11,7 @@ env = make_vec_env("FlappyBird-v0", n_envs=4, env_kwargs={'render_mode': 'rgb_ar
 model = PPO("MlpPolicy", env, verbose=1)
 
 # Modell trainieren
-model.learn(total_timesteps=100000)
+model.learn(total_timesteps=1000000)
 
 # Modell speichern
 model.save("ppo_flappybird")
