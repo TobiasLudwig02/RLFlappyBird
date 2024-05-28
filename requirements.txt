@@ -1,0 +1,4 @@
+gymnasium==0.26.0
+flappy_bird_gymnasium==0.0.2
+stable-baselines3==1.6.0
+numpy==1.24.2
