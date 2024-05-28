@@ -14,20 +14,20 @@ class CustomFlappyBirdEnv(FlappyBirdEnv):
         # Weitere Anpassungen nach Bedarf
 
     def _get_reward(self):
-        reward = 0.2  # +0.1 - every frame it stays alive
+        reward = 0.4  # +0.1 - every frame it stays alive
         if self.player['y'] + self.player['h'] >= self.screen_height:
-            reward = -10.0  # -1.0 - dying
+            reward = -20.0  # -1.0 - dying
         elif self.player['y'] <= 0:
-            reward = -5  # -0.5 - touch the top of the screen
+            reward = -10  # -0.5 - touch the top of the screen
         elif self.pipe_passed:
-            reward = 10.0  # +1.0 - successfully passing a pipe
+            reward = 100.0  # +1.0 - successfully passing a pipe
         return reward
 
 # Registrieren Sie die benutzerdefinierte Umgebung
 gym.envs.registration.register(
     id='CustomFlappyBird-v0',
     entry_point='__main__:CustomFlappyBirdEnv',
-    max_episode_steps=1000,
+    max_episode_steps=100000,
 )
 
 # Environment erstellen
@@ -40,7 +40,7 @@ model = PPO("MlpPolicy", env, verbose=1)
 model.learn(total_timesteps=1000000)
 
 # Modell speichern
-model.save("ppo_flappybird_custom")
+model.save("ppo_flappybird_custom_v2")
 
 # Modell laden (falls erforderlich)
 # model = PPO.load("ppo_flappybird_custom")
