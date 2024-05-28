@@ -20,7 +20,7 @@ def heuristic(obs):
         return 0
 
 # Hauptschleife für das Spiel
-while True:
+while True:dsffsfvds
     # Aktion basierend auf Heuristik auswählen
     action = heuristic(obs)
     
