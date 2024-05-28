@@ -7,7 +7,7 @@ from stable_baselines3.common.evaluation import evaluate_policy
 env = gym.make("FlappyBird-v0", render_mode='human', use_lidar=False)
 
 # Modell laden
-model = PPO.load("ppo_flappybird")
+model = PPO.load("models\ppo_flappybird")
 
 # Evaluate the trained agent
 mean_reward, std_reward = evaluate_policy(model, env, n_eval_episodes=10)

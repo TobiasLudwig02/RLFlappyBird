@@ -14,10 +14,7 @@ model = PPO("MlpPolicy", env, verbose=1)
 model.learn(total_timesteps=1000000)
 
 # Modell speichern
-model.save("ppo_flappybird")
-
-# Modell laden (falls erforderlich)
-# model = PPO.load("ppo_flappybird")
+model.save("models\ppo_flappybird")
 
 # Evaluate the trained agent
 mean_reward, std_reward = evaluate_policy(model, env, n_eval_episodes=10)
