@@ -35,7 +35,17 @@ gym.envs.registration.register(
 env = make_vec_env("CustomFlappyBird-v0", n_envs=4, env_kwargs={'render_mode': 'rgb_array', 'use_lidar': False})
 
 # PPO Modell definieren
-model = PPO("MlpPolicy", env, verbose=1)
+model = PPO(
+    "MlpPolicy", 
+    env, 
+    learning_rate=3e-4, 
+    n_steps=256, 
+    batch_size=64, 
+    n_epochs=10, 
+    gamma=0.99, 
+    ent_coef=0.01,
+    verbose=1
+)
 
 # Listen zum Speichern der Belohnungen und der Schritte
 reward_list = []
