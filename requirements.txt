@@ -1,3 +1,6 @@
+#   Using cached gymnasium-0.26.1-py3-none-any.whl (830 kB)
+# ERROR: Could not find a version that satisfies the requirement flappy_bird_gymnasium==0.0.2 (from versions: 0.1.0, 0.1.1, 0.1.2, 0.2.0, 0.2.1, 0.2.2, 0.3.0, 0.4.0)
+# ERROR: No matching distribution found for flappy_bird_gymnasium==0.0.2
 gymnasium==0.26.1
 flappy_bird_gymnasium==0.0.2
 stable-baselines3==1.6.0
