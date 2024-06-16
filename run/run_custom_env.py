@@ -29,7 +29,7 @@ gym.envs.registration.register(
 env = gym.make("CustomFlappyBird-v0", render_mode='human', use_lidar=False)
 
 # Modell laden
-model = PPO.load("models\ppo_flappybird_custom_v2")
+model = PPO.load("models/ppo_flappybird_custom")
 
 # Evaluate the trained agent
 mean_reward, std_reward = evaluate_policy(model, env, n_eval_episodes=10)
