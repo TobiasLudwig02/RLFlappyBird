@@ -24,7 +24,6 @@ class CustomFlappyBirdEnv(FlappyBirdEnv):
             reward = 100.0  # +1.0 - successfully passing a pipe
         return reward
 
-# Registrieren Sie die benutzerdefinierte Umgebung
 gym.envs.registration.register(
     id='CustomFlappyBird-v0',
     entry_point='__main__:CustomFlappyBirdEnv',

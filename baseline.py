@@ -23,7 +23,7 @@ while True:
 
     # Processing:
     obs, reward, terminated, _, info = env.step(action)
-    print(obs[9])
+    # print(obs[9])
     # Checking if the player is still alive
     if terminated:
         break
