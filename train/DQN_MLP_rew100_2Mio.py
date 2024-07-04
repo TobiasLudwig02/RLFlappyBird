@@ -1,5 +1,5 @@
 import gymnasium as gym
-from stable_baselines3 import PPO
+from stable_baselines3 import DQN
 from stable_baselines3.common.env_util import make_vec_env
 from stable_baselines3.common.logger import configure
 import os
@@ -23,15 +23,18 @@ gym.envs.registration.register(
 env = make_vec_env("CustomFlappyBird-v0", n_envs=4, env_kwargs={'render_mode': 'rgb_array', 'use_lidar': False})
 
 # PPO Modell definieren
-model = PPO(
-    "MlpPolicy", 
-    env, 
-    learning_rate=3e-4, 
-    n_steps=256, 
-    batch_size=64, 
-    n_epochs=10, 
-    gamma=0.99, 
-    ent_coef=0.01,
+model = DQN(
+    "MlpPolicy",  # Policy type
+    env,
+    learning_rate=1e-4,
+    buffer_size=50000,
+    learning_starts=1000,
+    batch_size=32,
+    tau=1.0,
+    gamma=0.99,
+    train_freq=4,
+    gradient_steps=1,
+    target_update_interval=1000,
     verbose=1,
     device='cuda'
 )
@@ -43,5 +46,5 @@ model.set_logger(new_logger)
 model.learn(total_timesteps=2000000)
 
 # Modell speichern
-model.save("models/rew100_2Mio")
+model.save("models/DQN_MLP_rew100_2Mio")
 
