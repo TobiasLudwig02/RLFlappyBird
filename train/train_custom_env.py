@@ -1,9 +1,14 @@
 import gymnasium as gym
 from stable_baselines3 import PPO
 from stable_baselines3.common.env_util import make_vec_env
-# from stable_baselines3.common.vec_env import VecMonitor
+import os
 import numpy as np
-from classes import CustomFlappyBirdEnv, RewardLoggerCallback
+import pandas as pd
+from classes import CustomFlappyBirdEnv, SaveEpisodeRewardCallback
+
+# Log-Directory für den Callback festlegen
+log_dir = "./logs/"
+os.makedirs(log_dir, exist_ok=True)
 
 gym.envs.registration.register(
     id='CustomFlappyBird-v0',
@@ -27,11 +32,11 @@ model = PPO(
     device='cuda'
 )
 
-# Callback instanziieren
-reward_logging_callback = RewardLoggerCallback()
+# Callback erstellen
+callback = SaveEpisodeRewardCallback(log_dir=log_dir)
 
 # Modell trainieren mit Callback
-model.learn(total_timesteps=10000, callback=reward_logging_callback)
+model.learn(total_timesteps=300000, callback=callback)
 
 # Modell speichern
 # model.save("models/model_10Mio")
