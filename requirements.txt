@@ -3,3 +3,5 @@ gymnasium
 flappy_bird_gymnasium
 numpy==1.26.4
 pandas
+os
+sys

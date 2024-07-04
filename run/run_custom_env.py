@@ -3,20 +3,13 @@ import flappy_bird_gymnasium
 from stable_baselines3 import PPO
 from stable_baselines3.common.evaluation import evaluate_policy
 from flappy_bird_gymnasium.envs.flappy_bird_env import FlappyBirdEnv
+import os
+import sys
+# Fügen Sie den Pfad zum 'train'-Verzeichnis hinzu
+sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), '..', 'train')))
 
-class CustomFlappyBirdEnv(FlappyBirdEnv):
-    def __init__(self, render_mode=None, use_lidar=False, **kwargs):
-        super(CustomFlappyBirdEnv, self).__init__(render_mode=render_mode, use_lidar=use_lidar, **kwargs)
-
-    def _get_reward(self):
-        reward = 0.1  # +0.1 - every frame it stays alive
-        if self.player['y'] + self.player['h'] >= self.screen_height:
-            reward = -1.0  # -1.0 - dying
-        elif self.player['y'] <= 0:
-            reward = -0.5  # -0.5 - touch the top of the screen
-        elif self.pipe_passed:
-            reward = 1.0  # +1.0 - successfully passing a pipe
-        return reward
+# Importieren Sie die Klasse
+from classes import CustomFlappyBirdEnv
 
 # Registrieren Sie die benutzerdefinierte Umgebung
 gym.envs.registration.register(
@@ -29,11 +22,11 @@ gym.envs.registration.register(
 env = gym.make("CustomFlappyBird-v0", render_mode='human', use_lidar=False)
 
 # Modell laden
-model = PPO.load("models/ppo_flappybird_custom")
+model = PPO.load("models/A2C_MLP_rew100_2Mio")
+# model = PPO.load("models/DQN_MLP_rew100_2Mio")
+# model = PPO.load("models/PPO_MLP_rew100_2Mio")
+# model = PPO.load("models/PPO_MLP_std_2Mio")
 
-# Evaluate the trained agent
-mean_reward, std_reward = evaluate_policy(model, env, n_eval_episodes=10)
-print(f"Mean reward: {mean_reward} +/- {std_reward}")
 
 # Teste den trainierten Agenten
 obs, _ = env.reset()
@@ -44,4 +37,3 @@ while True:
     if dones:
         obs, _ = env.reset()
 
-env.close()
