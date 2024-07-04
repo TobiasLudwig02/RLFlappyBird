@@ -1,7 +1,5 @@
 from stable_baselines3.common.callbacks import BaseCallback
 from flappy_bird_gymnasium.envs.flappy_bird_env import FlappyBirdEnv
-# from stable_baselines3.common.logger import configure
-import os
 import numpy as np
 import pandas as pd
 
