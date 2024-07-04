@@ -14,9 +14,9 @@ class CustomFlappyBirdEnv(FlappyBirdEnv):
     def _get_reward(self):
         reward = 0.1  # +0.1 - every frame it stays alive
         if self.player['y'] + self.player['h'] >= self.screen_height:
-            reward = -1.0  # -1.0 - dying
+            reward = -10.0  # -1.0 - dying
         elif self.player['y'] <= 0:
             reward = -0.5 # -0.5 - touch the top of the screen
         elif self.pipe_passed:
-            reward = 1.0  # +1.0 - successfully passing a pipe
+            reward = 100  # +1.0 - successfully passing a pipe
         return reward

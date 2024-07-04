@@ -3,17 +3,15 @@ from stable_baselines3 import PPO
 from stable_baselines3.common.env_util import make_vec_env
 from stable_baselines3.common.logger import configure
 import os
-import numpy as np
-import pandas as pd
 from classes import CustomFlappyBirdEnv
 
 # Log-Directory und Dateiname für den Callback festlegen
 log_dir = "./logs/"
 os.makedirs(log_dir, exist_ok=True)
-custom_log_file = os.path.join(log_dir, "std_2Mio.csv")
+custom_log_file = os.path.join(log_dir, "rew100_2Mio")
 
 # Configure the logger to save data to a specific folder
-new_logger = configure(log_dir, ["stdout", "csv"])
+new_logger = configure(custom_log_file, ["stdout", "csv"])
 
 gym.envs.registration.register(
     id='CustomFlappyBird-v0',
@@ -45,5 +43,5 @@ model.set_logger(new_logger)
 model.learn(total_timesteps=2000000)
 
 # Modell speichern
-model.save("models/std_2Mio")
+model.save("models/rew100_2Mio")
 
