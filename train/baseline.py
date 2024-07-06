@@ -3,11 +3,11 @@ import gymnasium as gym
 import numpy as np
 import pandas as pd
 import os
-from classes import CustomFlappyBirdEnv
+from classes import CustomFlappyBirdEnv_rew100
 
 gym.envs.registration.register(
     id='CustomFlappyBird-v0',
-    entry_point='__main__:CustomFlappyBirdEnv',
+    entry_point='__main__:CustomFlappyBirdEnv_rew100',
     max_episode_steps=10000000,
 )
 

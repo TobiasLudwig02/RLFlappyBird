@@ -3,7 +3,7 @@ from stable_baselines3 import PPO
 from stable_baselines3.common.env_util import make_vec_env
 from stable_baselines3.common.logger import configure
 import os
-from classes import CustomFlappyBirdEnv
+from classes import CustomFlappyBirdEnv_rew100
 
 # Log-Directory und Dateiname für den Callback festlegen
 log_dir = "./logs/"
@@ -15,7 +15,7 @@ new_logger = configure(custom_log_file, ["stdout", "csv"])
 
 gym.envs.registration.register(
     id='CustomFlappyBird-v0',
-    entry_point='__main__:CustomFlappyBirdEnv',
+    entry_point='__main__:CustomFlappyBirdEnv_rew100',
     max_episode_steps=10000000,
 )
 
