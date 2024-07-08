@@ -9,12 +9,12 @@ import sys
 sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), '..', 'train')))
 
 # Importieren Sie die Klasse
-from classes import CustomFlappyBirdEnv_std, FlappyBirdEnv_1
+from classes import CustomFlappyBirdEnv_std
 
 # Registrieren Sie die benutzerdefinierte Umgebung
 gym.envs.registration.register(
     id='CustomFlappyBird-v0',
-    entry_point='__main__:FlappyBirdEnv_1',
+    entry_point='__main__:CustomFlappyBirdEnv_std',
     max_episode_steps=100000,
 )
 
