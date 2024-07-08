@@ -253,7 +253,6 @@ class CustomFlappyBirdEnv_rew100(FlappyBirdEnv):
             info,
         )
 
-    
 class CustomFlappyBirdEnv_std(FlappyBirdEnv):
     def __init__(
         self,
@@ -472,3 +471,229 @@ class CustomFlappyBirdEnv_std(FlappyBirdEnv):
             (self._score_limit is not None) and (self._score >= self._score_limit),
             info,
         )
+
+class CustomFlappyBirdEnv_gap200(FlappyBirdEnv):
+    def __init__(
+        self,
+        screen_size: Tuple[int, int] = (288, 512),
+        audio_on: bool = False,
+        normalize_obs: bool = True,
+        use_lidar: bool = True,
+        pipe_gap: int = 200,
+        bird_color: str = "yellow",
+        pipe_color: str = "green",
+        render_mode: Optional[str] = None,
+        background: Optional[str] = "day",
+        score_limit: Optional[int] = None,
+        debug: bool = False,
+    ) -> None:
+        assert render_mode is None or render_mode in self.metadata["render_modes"]
+        self.render_mode = render_mode
+        self._debug = debug
+        self._score_limit = score_limit
+
+        self.action_space = gymnasium.spaces.Discrete(2)
+        if use_lidar:
+            if normalize_obs:
+                self.observation_space = gymnasium.spaces.Box(
+                    0.0, 1.0, shape=(180,), dtype=np.float64
+                )
+            else:
+                self.observation_space = gymnasium.spaces.Box(
+                    0.0, np.inf, shape=(180,), dtype=np.float64
+                )
+        else:
+            if normalize_obs:
+                self.observation_space = gymnasium.spaces.Box(
+                    -1.0, 1.0, shape=(12,), dtype=np.float64
+                )
+            else:
+                self.observation_space = gymnasium.spaces.Box(
+                    -np.inf, np.inf, shape=(12,), dtype=np.float64
+                )
+
+        self._screen_width = screen_size[0]
+        self._screen_height = screen_size[1]
+        self._normalize_obs = normalize_obs
+        self._pipe_gap = pipe_gap
+        self._audio_on = audio_on
+        self._use_lidar = use_lidar
+        self._sound_cache = None
+        self._player_flapped = False
+        self._player_idx_gen = cycle([0, 1, 2, 1])
+        self._bird_color = bird_color
+        self._pipe_color = pipe_color
+        self._bg_type = background
+
+        self._ground = {"x": 0, "y": self._screen_height * 0.79}
+        self._base_shift = BASE_WIDTH - BACKGROUND_WIDTH
+
+        if use_lidar:
+            self._lidar = LIDAR(LIDAR_MAX_DISTANCE)
+            self._get_observation = self._get_observation_lidar
+        else:
+            self._get_observation = self._get_observation_features
+
+        if render_mode is not None:
+            self._fps_clock = pygame.time.Clock()
+            self._display = None
+            self._surface = pygame.Surface(screen_size)
+            self._images = utils.load_images(
+                convert=False,
+                bird_color=bird_color,
+                pipe_color=pipe_color,
+                bg_type=background,
+            )
+            if audio_on:
+                self._sounds = utils.load_sounds()
+
+class CustomFlappyBirdEnv_gap150(FlappyBirdEnv):
+    def __init__(
+        self,
+        screen_size: Tuple[int, int] = (288, 512),
+        audio_on: bool = False,
+        normalize_obs: bool = True,
+        use_lidar: bool = True,
+        pipe_gap: int = 150,
+        bird_color: str = "yellow",
+        pipe_color: str = "green",
+        render_mode: Optional[str] = None,
+        background: Optional[str] = "day",
+        score_limit: Optional[int] = None,
+        debug: bool = False,
+    ) -> None:
+        assert render_mode is None or render_mode in self.metadata["render_modes"]
+        self.render_mode = render_mode
+        self._debug = debug
+        self._score_limit = score_limit
+
+        self.action_space = gymnasium.spaces.Discrete(2)
+        if use_lidar:
+            if normalize_obs:
+                self.observation_space = gymnasium.spaces.Box(
+                    0.0, 1.0, shape=(180,), dtype=np.float64
+                )
+            else:
+                self.observation_space = gymnasium.spaces.Box(
+                    0.0, np.inf, shape=(180,), dtype=np.float64
+                )
+        else:
+            if normalize_obs:
+                self.observation_space = gymnasium.spaces.Box(
+                    -1.0, 1.0, shape=(12,), dtype=np.float64
+                )
+            else:
+                self.observation_space = gymnasium.spaces.Box(
+                    -np.inf, np.inf, shape=(12,), dtype=np.float64
+                )
+
+        self._screen_width = screen_size[0]
+        self._screen_height = screen_size[1]
+        self._normalize_obs = normalize_obs
+        self._pipe_gap = pipe_gap
+        self._audio_on = audio_on
+        self._use_lidar = use_lidar
+        self._sound_cache = None
+        self._player_flapped = False
+        self._player_idx_gen = cycle([0, 1, 2, 1])
+        self._bird_color = bird_color
+        self._pipe_color = pipe_color
+        self._bg_type = background
+
+        self._ground = {"x": 0, "y": self._screen_height * 0.79}
+        self._base_shift = BASE_WIDTH - BACKGROUND_WIDTH
+
+        if use_lidar:
+            self._lidar = LIDAR(LIDAR_MAX_DISTANCE)
+            self._get_observation = self._get_observation_lidar
+        else:
+            self._get_observation = self._get_observation_features
+
+        if render_mode is not None:
+            self._fps_clock = pygame.time.Clock()
+            self._display = None
+            self._surface = pygame.Surface(screen_size)
+            self._images = utils.load_images(
+                convert=False,
+                bird_color=bird_color,
+                pipe_color=pipe_color,
+                bg_type=background,
+            )
+            if audio_on:
+                self._sounds = utils.load_sounds()
+
+class CustomFlappyBirdEnv_gap125(FlappyBirdEnv):
+    def __init__(
+        self,
+        screen_size: Tuple[int, int] = (288, 512),
+        audio_on: bool = False,
+        normalize_obs: bool = True,
+        use_lidar: bool = True,
+        pipe_gap: int = 125,
+        bird_color: str = "yellow",
+        pipe_color: str = "green",
+        render_mode: Optional[str] = None,
+        background: Optional[str] = "day",
+        score_limit: Optional[int] = None,
+        debug: bool = False,
+    ) -> None:
+        assert render_mode is None or render_mode in self.metadata["render_modes"]
+        self.render_mode = render_mode
+        self._debug = debug
+        self._score_limit = score_limit
+
+        self.action_space = gymnasium.spaces.Discrete(2)
+        if use_lidar:
+            if normalize_obs:
+                self.observation_space = gymnasium.spaces.Box(
+                    0.0, 1.0, shape=(180,), dtype=np.float64
+                )
+            else:
+                self.observation_space = gymnasium.spaces.Box(
+                    0.0, np.inf, shape=(180,), dtype=np.float64
+                )
+        else:
+            if normalize_obs:
+                self.observation_space = gymnasium.spaces.Box(
+                    -1.0, 1.0, shape=(12,), dtype=np.float64
+                )
+            else:
+                self.observation_space = gymnasium.spaces.Box(
+                    -np.inf, np.inf, shape=(12,), dtype=np.float64
+                )
+
+        self._screen_width = screen_size[0]
+        self._screen_height = screen_size[1]
+        self._normalize_obs = normalize_obs
+        self._pipe_gap = pipe_gap
+        self._audio_on = audio_on
+        self._use_lidar = use_lidar
+        self._sound_cache = None
+        self._player_flapped = False
+        self._player_idx_gen = cycle([0, 1, 2, 1])
+        self._bird_color = bird_color
+        self._pipe_color = pipe_color
+        self._bg_type = background
+
+        self._ground = {"x": 0, "y": self._screen_height * 0.79}
+        self._base_shift = BASE_WIDTH - BACKGROUND_WIDTH
+
+        if use_lidar:
+            self._lidar = LIDAR(LIDAR_MAX_DISTANCE)
+            self._get_observation = self._get_observation_lidar
+        else:
+            self._get_observation = self._get_observation_features
+
+        if render_mode is not None:
+            self._fps_clock = pygame.time.Clock()
+            self._display = None
+            self._surface = pygame.Surface(screen_size)
+            self._images = utils.load_images(
+                convert=False,
+                bird_color=bird_color,
+                pipe_color=pipe_color,
+                bg_type=background,
+            )
+            if audio_on:
+                self._sounds = utils.load_sounds()
+
