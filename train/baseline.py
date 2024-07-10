@@ -3,16 +3,18 @@ import gymnasium as gym
 import numpy as np
 import pandas as pd
 import os
-from classes import CustomFlappyBirdEnv_rew100
+from classes import CustomFlappyBirdEnv_std
 
+# Register env
 gym.envs.registration.register(
     id='CustomFlappyBird-v0',
-    entry_point='__main__:CustomFlappyBirdEnv_rew100',
+    entry_point='__main__:CustomFlappyBirdEnv_std',
     max_episode_steps=10000000,
 )
 
 # Environment setup
 env = gym.make("CustomFlappyBird-v0", render_mode="rgb_array", use_lidar=False)
+
 # Heuristic function
 def heuristic(obs):
     bird_y = obs[9]
@@ -41,7 +43,6 @@ while current_total_timesteps < total_timesteps:
         obs, _ = env.reset()
         ep_rew_sum = 0
 
-        # Log progress every 100 episodes
         if len(episode_rewards) % 100 == 0:
             mean_reward = np.mean(episode_rewards[-100:])
             print(f"Episode: {len(episode_rewards)}, Total Timesteps: {current_total_timesteps}, Mean Reward (last 100 episodes): {mean_reward}")
@@ -60,7 +61,7 @@ results_df = pd.DataFrame({
 })
 
 # Log the results to a file
-log_dir = "./logs/baseline_rew100_2Mio"
+log_dir = "./logs/baseline_std_2Mio"
 os.makedirs(log_dir, exist_ok=True)
 baseline_log_file = os.path.join(log_dir, "progress.csv")
 results_df.to_csv(baseline_log_file, index=False)

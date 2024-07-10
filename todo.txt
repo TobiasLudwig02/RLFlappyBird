@@ -1,8 +1,0 @@
--Hyperparameter tuning = Katharina, Tobias
--Retrain models/ länger trainieren = Katharina, Tobias
--Monitoring des Testen(Für Abgabe) = Ali
--Allgemein Visualisierungen überlegen = An-Phi
--(Curriculum Learning) = Tobias
--Schreiben der Arbeit = Ali, An-Phi
-
-=> Sonntag 14 Uhr

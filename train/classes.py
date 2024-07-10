@@ -28,12 +28,15 @@ from flappy_bird_gymnasium.envs.constants import (
 )
 from flappy_bird_gymnasium.envs.lidar import LIDAR
 
+# Code from https://github.com/markub3327/flappy-bird-gymnasium
+
 
 class Actions(IntEnum):
     """Possible actions for the player to take."""
 
     IDLE, FLAP = 0, 1
 
+# Changed reward to 100, 
 class CustomFlappyBirdEnv_rew100(FlappyBirdEnv):
     def __init__(
         self,
@@ -253,6 +256,7 @@ class CustomFlappyBirdEnv_rew100(FlappyBirdEnv):
             info,
         )
 
+# Standard env
 class CustomFlappyBirdEnv_std(FlappyBirdEnv):
     def __init__(
         self,
@@ -472,6 +476,7 @@ class CustomFlappyBirdEnv_std(FlappyBirdEnv):
             info,
         )
 
+# Changed gap size to 200
 class CustomFlappyBirdEnv_gap200(FlappyBirdEnv):
     def __init__(
         self,
@@ -547,6 +552,7 @@ class CustomFlappyBirdEnv_gap200(FlappyBirdEnv):
             if audio_on:
                 self._sounds = utils.load_sounds()
 
+# Changed gap size to 150
 class CustomFlappyBirdEnv_gap150(FlappyBirdEnv):
     def __init__(
         self,
@@ -622,6 +628,7 @@ class CustomFlappyBirdEnv_gap150(FlappyBirdEnv):
             if audio_on:
                 self._sounds = utils.load_sounds()
 
+# Changed gap size to 125
 class CustomFlappyBirdEnv_gap125(FlappyBirdEnv):
     def __init__(
         self,
@@ -696,4 +703,3 @@ class CustomFlappyBirdEnv_gap125(FlappyBirdEnv):
             )
             if audio_on:
                 self._sounds = utils.load_sounds()
-

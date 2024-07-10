@@ -1,10 +1,8 @@
-stable_baselines3
-gymnasium
-flappy_bird_gymnasium
+stable_baselines3==2.3.2
+gymnasium==0.29.1
+flappy_bird_gymnasium==0.4.0
 numpy==1.26.4
-pandas
-os
-seaborn
-sys
-pygame
-matplotlib
+pandas==2.2.2
+seaborn==0.13.2
+pygame==2.6.0
+matplotlib==3.8.4
